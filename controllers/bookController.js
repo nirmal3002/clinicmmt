@@ -1,5 +1,5 @@
 const BookModel = require('../models/bookModel');
-
+//post the books
 exports.createBook = async (req, res) => {
     try {
         let singleBook = new BookModel({ title: req.body.title, author: req.body.author });
@@ -9,7 +9,7 @@ exports.createBook = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
-
+//get all the books
 exports.getAllBooks = async (req, res) => {
     try {
         const allBooks = await BookModel.find();
@@ -18,7 +18,7 @@ exports.getAllBooks = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
-
+//get the book by id 
 exports.getBookById = async (req, res) => {
     try {
         const bookById = await BookModel.findById(req.params.id);
@@ -28,7 +28,7 @@ exports.getBookById = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
-
+//update the books 
 exports.updateBook = async (req, res) => {
     try {
         const bookById = await BookModel.findByIdAndUpdate(req.params.id, { title: req.body.title, author: req.body.author }, { new: true });
@@ -40,13 +40,13 @@ exports.updateBook = async (req, res) => {
     }
 };
 
-// exports.deleteBook = async (req, res) => {
-//     try {
-//         const bookById = await BookModel.findByIdAndDelete(req.params.id);
-//         if (!bookById) return res.status(404).send('Book not found in database');
-//         res.status(204).send();
-//         res.send("Book deleted successfully");
-//     } catch (err) {
-//         res.status(400).send(err.message);
-//     }
-// };
+exports.deleteBook = async (req, res) => {
+    try {
+        const bookById = await BookModel.findByIdAndDelete(req.params.id);
+        if (!bookById) return res.status(404).send('Book not found in database');
+        res.status(204).send();
+        res.send("Book deleted successfully");
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+};
